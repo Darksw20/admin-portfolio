@@ -1,95 +1,70 @@
-import Image from 'next/image'
+'use client'
+
+import { useState } from 'react'
+import { useRouter } from 'next/navigation'
 import styles from './page.module.css'
+import { apiRequest } from '../lib/api'
 
-export default function Home() {
+export default function LoginPage() {
+  const router = useRouter()
+  const [username, setUsername] = useState('')
+  const [password, setPassword] = useState('')
+  const [error, setError] = useState('')
+  const [isSubmitting, setIsSubmitting] = useState(false)
+
+  async function handleSubmit(event) {
+    event.preventDefault()
+    setError('')
+    setIsSubmitting(true)
+
+    try {
+      await apiRequest('/v1/auth/login', {
+        method: 'POST',
+        body: JSON.stringify({ username, password }),
+      })
+      router.push('/dashboard')
+    } catch (requestError) {
+      setError(requestError.message)
+    } finally {
+      setIsSubmitting(false)
+    }
+  }
+
   return (
-    <main className={styles.main}>
-      <div className={styles.description}>
-        <p>
-          Get started by editing&nbsp;
-          <code className={styles.code}>src/app/page.js</code>
-        </p>
-        <div>
-          <a
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{' '}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className={styles.vercelLogo}
-              width={100}
-              height={24}
-              priority
+    <main className={styles.loginPage}>
+      <section className={styles.loginCard} aria-labelledby="login-title">
+        <p className={styles.eyebrow}>&gt; ADMIN_PORTFOLIO</p>
+        <h1 id="login-title">Iniciar sesión</h1>
+        <p className={styles.intro}>Administra el contenido publicado de ricardonavarro.mx.</p>
+
+        <form className={styles.form} onSubmit={handleSubmit}>
+          <label>
+            Usuario
+            <input
+              autoComplete="username"
+              disabled={isSubmitting}
+              onChange={(event) => setUsername(event.target.value)}
+              required
+              value={username}
             />
-          </a>
-        </div>
-      </div>
-
-      <div className={styles.center}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
-      </div>
-
-      <div className={styles.grid}>
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Docs <span>-&gt;</span>
-          </h2>
-          <p>Find in-depth information about Next.js features and API.</p>
-        </a>
-
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Learn <span>-&gt;</span>
-          </h2>
-          <p>Learn about Next.js in an interactive course with&nbsp;quizzes!</p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Templates <span>-&gt;</span>
-          </h2>
-          <p>Explore the Next.js 13 playground.</p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Deploy <span>-&gt;</span>
-          </h2>
-          <p>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
-      </div>
+          </label>
+          <label>
+            Contraseña
+            <input
+              autoComplete="current-password"
+              disabled={isSubmitting}
+              onChange={(event) => setPassword(event.target.value)}
+              required
+              type="password"
+              value={password}
+            />
+          </label>
+          {error ? <p className={styles.error} role="alert">{error}</p> : null}
+          <button disabled={isSubmitting} type="submit">
+            {isSubmitting ? 'Validando…' : 'Entrar'}
+          </button>
+        </form>
+      </section>
     </main>
   )
 }
