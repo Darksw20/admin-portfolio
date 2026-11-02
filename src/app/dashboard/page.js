@@ -13,16 +13,12 @@ export default function DashboardPage() {
 
   useEffect(() => {
     apiRequest('/v1/auth/session')
-      .then((response) => setUser(response.user))
-      .catch(() => router.replace('/'))
+      .then((response) => { if (response.user) setUser(response.user); else router.replace('/') })
+      .catch(() => setError('No se pudo comprobar la sesión. Revisa la conexión con el servidor e inténtalo de nuevo.'))
   }, [router])
 
-  async function logout() {
-    try {
-      await apiRequest('/v1/auth/logout', { method: 'POST' })
-    } finally {
-      router.replace('/')
-    }
+  if (error) {
+    return <main className={styles.dashboardPage}><section className={styles.dashboardCard}><p role="alert">{error}</p><button type="button" onClick={() => window.location.reload()}>Reintentar</button></section></main>
   }
 
   if (!user) {
@@ -37,16 +33,18 @@ export default function DashboardPage() {
             <p className={styles.eyebrow}>&gt; DASHBOARD</p>
             <h1 id="dashboard-title">Hola, {user.username}</h1>
           </div>
-          <button className={styles.logoutButton} onClick={logout} type="button">Cerrar sesión</button>
+          <span className={styles.sessionBadge}>● SESIÓN ACTIVA</span>
         </div>
         <p className={styles.welcome}>Sesión activa con rol: {user.roles.join(', ')}.</p>
-        <div className={styles.actions}>
-          <Link className={styles.primaryLink} href="/dashboard/projects">Gestionar proyectos</Link>
-          <Link className={styles.secondaryLink} href="/dashboard/skills">Gestionar habilidades</Link>
-          <Link className={styles.secondaryLink} href="/dashboard/learning">Gestionar formación</Link>
-          <Link className={styles.secondaryLink} href="/dashboard/contacts">Revisar contactos</Link>
+        <p className={styles.sectionLabel}>CENTRO DE CONTROL / CONTENIDO</p>
+        <div className={styles.dashboardTiles}>
+          <Link href="/dashboard/projects"><span>01 / PORTAFOLIO</span><strong>Proyectos</strong><small>Administra tus trabajos, imágenes y enlaces.</small><b>↗</b></Link>
+          <Link href="/dashboard/experience"><span>02 / CARRERA</span><strong>Experiencia laboral</strong><small>Administra puestos, logros y habilidades.</small><b>↗</b></Link>
+          <Link href="/dashboard/skills"><span>02 / CONOCIMIENTO</span><strong>Habilidades</strong><small>Actualiza tus herramientas e idiomas.</small><b>↗</b></Link>
+          <Link href="/dashboard/learning"><span>03 / TRAYECTORIA</span><strong>Formación</strong><small>Gestiona cursos, títulos y certificaciones.</small><b>↗</b></Link>
+          <Link href="/dashboard/profile"><span>04 / IDENTIDAD</span><strong>Perfil y redes</strong><small>Edita tu historia y presentación.</small><b>↗</b></Link>
+          <Link href="/dashboard/contacts"><span>05 / BANDEJA</span><strong>Contactos</strong><small>Revisa los mensajes que recibes.</small><b>↗</b></Link>
         </div>
-        <div className={styles.placeholder}>La gestión de cursos, certificaciones, contenido y contactos aparecerá aquí en los siguientes pasos.</div>
       </section>
     </main>
   )

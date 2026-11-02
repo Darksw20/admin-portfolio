@@ -1,0 +1,8 @@
+.dialog { width: min(54rem, calc(100% - 2rem)); max-height: min(90dvh, 60rem); max-width: none; padding: 0; color: #edf0e5; background: #1a1d18; border: 1px solid #596547; box-shadow: 0 2rem 6rem #000b; }
+.dialog::backdrop { background: #080b08c9; backdrop-filter: blur(3px); }
+.header { position: sticky; top: 0; z-index: 1; display: flex; justify-content: space-between; align-items: center; gap: 1rem; padding: 1.4rem 1.6rem; background: #20241d; border-bottom: 1px solid #414b35; }
+.header p { margin: 0 0 .45rem; color: #a8bb7c; font: .65rem monospace; letter-spacing: .16em; }
+.header h2 { font-family: var(--pixel-font); font-size: clamp(1.1rem, 3vw, 1.7rem); font-weight: 400; margin: 0; }
+.close { border: 1px solid #56614a; background: transparent; color: white; font-size: 1.5rem; width: 2.4rem; height: 2.4rem; cursor: pointer; }
+.body { padding: 1.5rem 1.6rem 2rem; }
+@media (max-width: 600px) { .dialog { width: calc(100% - 1rem); max-height: 92dvh; } .header, .body { padding: 1rem; } }

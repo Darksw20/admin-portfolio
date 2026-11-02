@@ -73,3 +73,60 @@
   .translationColumns { grid-template-columns: 1fr; }
   .projectSettings { grid-template-columns: 1fr; }
 }
+/* Olive-toned control panel, sharing the portfolio's pixel and body fonts. */
+.loginPage, .dashboardPage { padding: clamp(1rem, 3.5vw, 3.5rem); }
+.loginCard, .dashboardCard { background: #191d17; border: 1px solid #3f4935; box-shadow: 0 20px 60px #0005; max-width: 100%; }
+.loginCard { max-width: 31rem; }
+.dashboardCard { min-height: 0; max-width: 80rem; padding: clamp(1.25rem, 3vw, 2.75rem); }
+.dashboardHeader { padding-bottom: 1.4rem; border-bottom: 1px solid #3b4432; }
+.eyebrow { color: #b4c985; font-size: .7rem; letter-spacing: .15em; }
+.loginCard h1, .dashboardCard h1 { font-family: var(--pixel-font); font-weight: 400; font-size: clamp(1.8rem, 4vw, 3.25rem); line-height: 1.2; letter-spacing: .015em; }
+.intro, .welcome { color: #b8c1ad; }
+.form label, .fullField, .projectSettings label { color: #d2dac8; }
+.form input, .filters input, .filters select, .createForm input, .createForm textarea, .projectSettings select, .projectSettings input { background: #11140f; border: 1px solid #4a5540; color: #f4f6ee; border-radius: 2px; }
+.form input:focus { border-color: #b9cb8b; outline: 2px solid #b9cb8b50; }
+.form button, .logoutButton, .filters button, .createForm > button, .rowActions button, .primaryLink { background: #adbf7e; color: #171c12; border: 1px solid #adbf7e; border-radius: 2px; }
+.secondaryLink, .editLink { border: 1px solid #657452; color: #e4ebd9; border-radius: 2px; }
+.primaryLink, .secondaryLink, .editLink { text-decoration: none; }
+.primaryLink:hover, .secondaryLink:hover, .editLink:hover { background: #36432c; color: white; }
+.projectList { border: 1px solid #3c4832; }
+.projectRow, .contactRow { border-color: #3c4832; }
+.projectRow span, .contactRow span { color: #a4af98; }
+.projectRow .status { background: #303b29; color: #d0dfb5; }
+.projectList > p { color: #c1cbb6; }
+.createForm { border-top: 0; padding-top: 0; }
+.translationColumns fieldset { border-color: #3c4832; }
+.translationColumns legend { color: #becf9a; }
+.placeholder { border-color: #46523b; color: #a9b59b; }
+@media (max-width: 640px) { .loginCard, .dashboardCard { padding: 1.25rem; } .dashboardHeader, .projectRow, .contactRow { align-items: flex-start; flex-wrap: wrap; } .translationColumns, .projectSettings { grid-template-columns: 1fr; } }
+
+.sessionBadge { border: 1px solid #536344; padding: .5rem .7rem; color: #c9dbad; font: .67rem monospace; letter-spacing: .08em; }
+.sectionLabel { color: #8c9a7e; font: .7rem monospace; letter-spacing: .14em; margin: 3rem 0 1rem; }
+.dashboardTiles { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 1rem; }
+.dashboardTiles a { position: relative; min-height: 11rem; display: flex; flex-direction: column; gap: .7rem; padding: 1.3rem; background: #22271f; border: 1px solid #3e4a35; text-decoration: none; }
+.dashboardTiles a:hover { background: #2b3325; border-color: #81966a; }
+.dashboardTiles span { color: #a4b589; font: .65rem monospace; letter-spacing: .08em; }
+.dashboardTiles strong { font-size: 1.25rem; }
+.dashboardTiles small { color: #b5bfa9; line-height: 1.5; }
+.dashboardTiles b { position: absolute; right: 1.2rem; bottom: 1.2rem; color: #b8ce8c; }
+@media (max-width: 1000px) { .dashboardTiles { grid-template-columns: repeat(2, minmax(0,1fr)); } }
+@media (max-width: 560px) { .dashboardTiles { grid-template-columns: 1fr; } }
+
+@media (prefers-reduced-motion: no-preference) { .dashboardCard h1, .loginCard h1 { animation: titleIn .65s ease-out both; } @keyframes titleIn { from { opacity: .45; transform: translateY(.3rem); } to { opacity: 1; transform: translateY(0); } } }
+
+@media (hover: hover) and (prefers-reduced-motion: no-preference) { .dashboardCard h1, .loginCard h1 { transition: color .3s ease, text-shadow .3s ease; } .dashboardCard h1:hover, .loginCard h1:hover { color: #dce9c6; text-shadow: 0 0 22px #a4b97e77; } }
+.areaFields { min-width: 0; border: 1px solid #3c4832; display: grid; gap: 1rem; padding: 1rem; }
+.areaFields legend { color: #becf9a; font-weight: 700; }
+.areaFields p { color: #b5bfa9; margin: 0; }
+.areaFields button { justify-self: start; color: #e4ebd9; background: #22281d; border: 1px solid #657452; padding: .5rem .8rem; cursor: pointer; }
+/* Give form controls room for full-size text and prevent grid overflow. */
+.form input, .filters input, .filters select, .createForm input:not([type="checkbox"]), .createForm select, .createForm textarea, .projectSettings input, .projectSettings select { width: 100%; min-width: 0; min-height: 3rem; padding: .75rem .85rem; line-height: 1.5; font-size: 1rem; }
+.createForm textarea { min-height: 8rem; }
+.createForm label, .projectSettings label { min-width: 0; }
+.projectSettings { grid-template-columns: repeat(auto-fit, minmax(min(100%, 12rem), 1fr)); }
+.skillPicker { max-height: 15rem; overflow-y: auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 12rem), 1fr)); gap: .5rem; }
+.skillPicker label { display: flex; align-items: flex-start; gap: .5rem; padding: .45rem; }
+.createForm .skillPicker input[type="checkbox"] { flex: 0 0 auto; width: 1.1rem; height: 1.1rem; min-height: 0; margin: .15rem 0 0; accent-color: #adbf7e; }
+
+.projectSettings .checkField { display: flex; align-items: center; gap: .6rem; align-self: end; min-height: 3rem; }
+.projectSettings .checkField input { width: 1.2rem; min-height: 0; height: 1.2rem; accent-color: #adbf7e; }

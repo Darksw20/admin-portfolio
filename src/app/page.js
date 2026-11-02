@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react'
+import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import styles from './page.module.css'
 import { apiRequest } from '../lib/api'
@@ -64,6 +65,7 @@ export default function LoginPage() {
             {isSubmitting ? 'Validando…' : 'Entrar'}
           </button>
         </form>
+        <p><Link href="/setup">Configuración inicial</Link></p>
       </section>
     </main>
   )

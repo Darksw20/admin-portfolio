@@ -5,9 +5,11 @@ import { useCallback, useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import styles from '../../page.module.css'
 import { apiRequest } from '../../../lib/api'
+import FormDialog from '../../../components/FormDialog'
+import SkillPicker from '../../../components/SkillPicker'
 
 const emptyForm = {
-  titleEs: '', slugEs: '', summaryEs: '', descriptionEs: '',
+  skillIds: [], titleEs: '', slugEs: '', summaryEs: '', descriptionEs: '',
   titleEn: '', slugEn: '', summaryEn: '', descriptionEn: '',
 }
 
@@ -18,6 +20,8 @@ function slugify(value) {
 }
 
 export default function ProjectsPage() {
+  const [slugTouched, setSlugTouched] = useState({ es: false, en: false })
+  const [formOpen, setFormOpen] = useState(false)
   const router = useRouter()
   const [projects, setProjects] = useState([])
   const [query, setQuery] = useState('')
@@ -37,7 +41,7 @@ export default function ProjectsPage() {
       const response = await apiRequest(`/v1/admin/projects?${parameters}`)
       setProjects(response.items)
     } catch (requestError) {
-      if (requestError.message.includes('Authentication')) router.replace('/')
+      if (requestError.status === 401) router.replace('/')
       else setError(requestError.message)
     } finally {
       setIsLoading(false)
@@ -49,8 +53,8 @@ export default function ProjectsPage() {
   function updateField(field, value) {
     setForm((current) => {
       const next = { ...current, [field]: value }
-      if (field === 'titleEs' && !current.slugEs) next.slugEs = slugify(value)
-      if (field === 'titleEn' && !current.slugEn) next.slugEn = slugify(value)
+      if (field === 'titleEs' && !slugTouched.es) next.slugEs = slugify(value)
+      if (field === 'titleEn' && !slugTouched.en) next.slugEn = slugify(value)
       return next
     })
   }
@@ -64,6 +68,7 @@ export default function ProjectsPage() {
         method: 'POST',
         body: JSON.stringify({
           status: 'draft',
+          skillIds: form.skillIds,
           translations: [
             { locale: 'es-MX', slug: form.slugEs, title: form.titleEs, summary: form.summaryEs, description: form.descriptionEs },
             { locale: 'en-US', slug: form.slugEn, title: form.titleEn, summary: form.summaryEn, description: form.descriptionEn },
@@ -71,6 +76,8 @@ export default function ProjectsPage() {
         }),
       })
       setForm(emptyForm)
+      setSlugTouched({ es: false, en: false })
+      setFormOpen(false)
       await loadProjects()
     } catch (requestError) {
       setError(requestError.message)
@@ -116,26 +123,27 @@ export default function ProjectsPage() {
           ))}
         </div>
 
-        <form className={styles.createForm} onSubmit={createProject}>
+        <button className={styles.primaryLink} type="button" onClick={() => { setError(''); setFormOpen(true) }}>+ Nuevo proyecto</button><FormDialog open={formOpen} onClose={() => setFormOpen(false)} title="Agregar proyecto">{error ? <p className={styles.error} role="alert">{error}</p> : null}<form className={styles.createForm} onSubmit={createProject}>
           <h2>Agregar proyecto como borrador</h2>
+          <SkillPicker selected={form.skillIds} onChange={value => updateField('skillIds', value)} />
           <div className={styles.translationColumns}>
             <fieldset>
               <legend>Español (México)</legend>
               <input onChange={(event) => updateField('titleEs', event.target.value)} placeholder="Título" required value={form.titleEs} />
-              <input onChange={(event) => updateField('slugEs', slugify(event.target.value))} placeholder="slug-del-proyecto" required value={form.slugEs} />
+              <input onChange={(event) => { setSlugTouched(current => ({ ...current, es: true })); updateField('slugEs', slugify(event.target.value)) }} placeholder="slug-del-proyecto" required value={form.slugEs} />
               <textarea onChange={(event) => updateField('summaryEs', event.target.value)} placeholder="Resumen" required value={form.summaryEs} />
               <textarea onChange={(event) => updateField('descriptionEs', event.target.value)} placeholder="Descripción" required value={form.descriptionEs} />
             </fieldset>
             <fieldset>
               <legend>English (US)</legend>
               <input onChange={(event) => updateField('titleEn', event.target.value)} placeholder="Title" required value={form.titleEn} />
-              <input onChange={(event) => updateField('slugEn', slugify(event.target.value))} placeholder="project-slug" required value={form.slugEn} />
+              <input onChange={(event) => { setSlugTouched(current => ({ ...current, en: true })); updateField('slugEn', slugify(event.target.value)) }} placeholder="project-slug" required value={form.slugEn} />
               <textarea onChange={(event) => updateField('summaryEn', event.target.value)} placeholder="Summary" required value={form.summaryEn} />
               <textarea onChange={(event) => updateField('descriptionEn', event.target.value)} placeholder="Description" required value={form.descriptionEn} />
             </fieldset>
           </div>
           <button disabled={isCreating} type="submit">{isCreating ? 'Guardando…' : 'Guardar borrador'}</button>
-        </form>
+        </form></FormDialog>
       </section>
     </main>
   )

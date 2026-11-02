@@ -6,16 +6,19 @@ export async function apiRequest(path, options = {}) {
   }
 
   const response = await fetch(`${backendUrl}${path}`, {
+    ...options,
     credentials: 'include',
     headers: { 'Content-Type': 'application/json', ...(options.headers ?? {}) },
-    ...options,
   })
 
   if (response.status === 204) return null
 
   const body = await response.json().catch(() => null)
   if (!response.ok) {
-    throw new Error(body?.error?.message ?? 'No fue posible completar la solicitud.')
+    const error = new Error(body?.error?.message ?? 'No fue posible completar la solicitud.')
+    error.status = response.status
+    error.code = body?.error?.code
+    throw error
   }
   return body
 }

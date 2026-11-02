@@ -1,13 +1,10 @@
-:root {
-  color: #f8fafc;
-  background: #0e1014;
-  font-family: Arial, Helvetica, sans-serif;
-}
-
+@font-face { font-family: 'Portfolio Pixel'; src: url('/fonts/upheavtt.ttf') format('truetype'); font-display: swap; }
+@font-face { font-family: 'Portfolio Futura'; src: url('/fonts/futura-medium.ttf') format('truetype'); font-display: swap; }
+:root { --pixel-font: 'Portfolio Pixel', monospace; --body-font: 'Portfolio Futura', Arial, sans-serif; color: #edf0e5; background: #10120f; font-family: var(--body-font); }
 * { box-sizing: border-box; }
-
 html, body { min-height: 100%; margin: 0; }
-
-body { background: radial-gradient(circle at top right, #26364a 0, #0e1014 38rem); }
-
-button, input { font: inherit; }
+body { background: radial-gradient(ellipse at 90% 0%, #282f20 0, #10120f 42rem); }
+button, input, textarea, select { font: inherit; }
+button, a { -webkit-tap-highlight-color: transparent; }
+a { color: inherit; }
+button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible { outline: 2px solid #c6dc92; outline-offset: 3px; }
