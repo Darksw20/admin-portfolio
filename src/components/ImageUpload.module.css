@@ -1,0 +1,19 @@
+.root { display:grid; gap:.7rem; min-width:0; grid-column:1/-1; }
+.label { font-weight:700; color:#e4ebdb; }
+.drop { border:1px dashed #6b7c5b; background:#1c211b; border-radius:.5rem; padding:1.1rem; display:flex; flex-direction:column; align-items:center; text-align:center; gap:.45rem; color:#c0cbb5; }
+.dragging { border-color:#c8e5a1; background:#303d29; }
+.drop small { color:#aab7a3; } .file { display:none; }
+.buttons { display:flex; flex-wrap:wrap; justify-content:center; gap:.5rem; margin:.3rem 0; }
+.root button { cursor:pointer; padding:.55rem .8rem; border:1px solid #6d805f; border-radius:.35rem; background:#303d29; color:#eff7e9; }
+.root button:hover,.root button:focus-visible { border-color:#d4eabc; outline-color:#d4eabc; }
+.root button:disabled { opacity:.5; cursor:wait; }
+.selected { display:flex; flex-wrap:wrap; gap:.6rem; }
+.selectedItem { position:relative; width:6.5rem; height:6.5rem; padding:.25rem; border:1px solid #56644c; background:#131812; }
+.selectedItem img { width:100%; height:100%; object-fit:contain; }
+.actions { position:absolute; right:.2rem; top:.2rem; display:flex; gap:.15rem; } .actions button { padding:.1rem .4rem; background:#111e; }
+.library { padding:1rem; border:1px solid #4d5d42; border-radius:.4rem; background:#151a14; }
+.libraryHeader { display:flex; gap:.7rem; flex-wrap:wrap; align-items:center; justify-content:space-between; margin-bottom:.8rem; }
+.libraryHeader input { width:min(100%,16rem); } .grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(6rem,1fr)); gap:.6rem; }
+.root .tile { padding:.3rem; background:#222a20; display:grid; gap:.4rem; text-align:left; min-width:0; } .tile img { width:100%; aspect-ratio:1; object-fit:contain; background:#eef0e8; } .tile span { font-size:.68rem; overflow-wrap:anywhere; } .root .active { border:2px solid #c8e5a1; }
+.advanced { color:#aebba7; font-size:.85rem; } .advanced summary { cursor:pointer; } .advanced label { display:grid; gap:.4rem; margin-top:.6rem; } .advanced textarea,.advanced input { width:100%; }
+.error { color:#ffb7ae; }

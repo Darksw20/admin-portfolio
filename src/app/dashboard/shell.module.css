@@ -1,0 +1,27 @@
+.shell { min-height: 100vh; }
+.sidebar { position: fixed; top: 0; left: 0; bottom: 0; width: 15.5rem; background: #171a15; border-right: 1px solid #363d2e; display: flex; flex-direction: column; padding: 1.7rem 1rem; z-index: 20; }
+.brand { display: flex; align-items: center; gap: .75rem; padding: .4rem .45rem 2rem; color: #eeefe6; text-decoration: none; font-family: var(--pixel-font); font-size: .8rem; letter-spacing: .05em; }
+.brandMark { color: #b3c57c; font-size: 1.5rem; }
+.brand small { display: block; color: #929b82; font: .6rem var(--body-font); letter-spacing: .16em; margin-top: .35rem; }
+.navLabel { display: flex; justify-content: space-between; color: #858f78; font: .62rem monospace; letter-spacing: .12em; padding: 0 .65rem; margin: 1rem 0 .8rem; }
+.navLabel span { opacity: .65; }
+.navigation { display: grid; gap: .3rem; }
+.navLink { display: flex; align-items: center; gap: .8rem; padding: .8rem .75rem; border: 1px solid transparent; color: #bac0b1; text-decoration: none; font-size: .94rem; }
+.navLink:hover { background: #22281d; color: #fff; }
+.navLink[aria-current=page] { background: #303a25; border-color: #596742; color: #ecf4da; }
+.icon { color: #a8bb78; font-size: 1.2rem; width: 1.25rem; text-align: center; }
+.bottom { margin-top: auto; padding: 1rem .6rem .2rem; display: grid; gap: 1.2rem; }
+.status { color: #9aa68c; font: .62rem monospace; letter-spacing: .12em; }
+.status i { display: inline-block; width: .42rem; height: .42rem; border-radius: 50%; background: #b4cc7a; margin-right: .4rem; }
+.bottom button, .mobileHeader button { color: #cbd2c0; background: none; border: 0; cursor: pointer; padding: 0; font: inherit; text-align: left; }
+.bottom button:hover { color: white; }
+.content { margin-left: 15.5rem; min-width: 0; }
+.mobileHeader { display: none; }
+@media (max-width: 760px) {
+ .content { margin-left: 0; padding-top: 3.8rem; }
+ .mobileHeader { display: flex; position: fixed; inset: 0 0 auto; height: 3.8rem; align-items: center; justify-content: space-between; padding: 0 1.1rem; background: #171a15; border-bottom: 1px solid #363d2e; z-index: 30; }
+ .mobileBrand { color: #eef0e6; font-family: var(--pixel-font); text-decoration: none; font-size: .95rem; }
+ .mobileBrand span { color: #b3c57c; }
+ .sidebar { top: 3.8rem; width: min(19rem, 88vw); transform: translateX(-100%); visibility: hidden; box-shadow: 1rem 0 2rem #0006; overflow-y: auto; }
+ .open { transform: translateX(0); visibility: visible; }
+}
