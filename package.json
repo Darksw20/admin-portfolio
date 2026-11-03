@@ -6,11 +6,17 @@
     "dev": "next dev -p 8081",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "postinstall": "node scripts/copy-pdf-worker.mjs",
+    "test:resume": "node --test tests/resume.test.mjs",
+    "test:ats": "node --test tests/ats.test.mjs"
   },
   "dependencies": {
     "@vercel/blob": "^1.1.1",
+    "mammoth": "1.13.0",
     "next": "14.0.1",
+    "pdf-lib": "1.17.1",
+    "pdfjs-dist": "4.10.38",
     "react": "^18",
     "react-dom": "^18"
   },
