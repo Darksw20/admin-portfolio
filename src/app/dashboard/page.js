@@ -43,6 +43,7 @@ export default function DashboardPage() {
           <Link href="/dashboard/skills"><span>02 / CONOCIMIENTO</span><strong>Habilidades</strong><small>Actualiza tus herramientas e idiomas.</small><b>↗</b></Link>
           <Link href="/dashboard/learning"><span>03 / TRAYECTORIA</span><strong>Formación</strong><small>Gestiona cursos, títulos y certificaciones.</small><b>↗</b></Link>
           <Link href="/dashboard/profile"><span>04 / IDENTIDAD</span><strong>Perfil y redes</strong><small>Edita tu historia y presentación.</small><b>↗</b></Link>
+          <Link href="/dashboard/resumes"><span>06 / CV</span><strong>Currículums</strong><small>Personaliza y exporta tu trayectoria.</small><b>↗</b></Link>
           <Link href="/dashboard/contacts"><span>05 / BANDEJA</span><strong>Contactos</strong><small>Revisa los mensajes que recibes.</small><b>↗</b></Link>
         </div>
       </section>

@@ -12,6 +12,7 @@ const navigation = [
   { href: '/dashboard/experience', title: 'Experiencia', icon: '▤' },
   { href: '/dashboard/skills', title: 'Habilidades', icon: '✳' },
   { href: '/dashboard/learning', title: 'Formación', icon: '◇' },
+  { href: '/dashboard/resumes', title: 'Currículums', icon: '▧' },
   { href: '/dashboard/contacts', title: 'Contactos', icon: '✉' },
 ]
 export default function DashboardLayout({ children }) {
@@ -22,7 +23,7 @@ export default function DashboardLayout({ children }) {
     <header className={styles.mobileHeader}><Link href="/dashboard" className={styles.mobileBrand}>RN<span>_</span> ADMIN</Link><button type="button" aria-expanded={open} aria-controls="admin-menu" onClick={() => setOpen(!open)}>{open ? 'Cerrar' : 'Menú'} <span aria-hidden="true">{open ? '×' : '☰'}</span></button></header>
     <aside id="admin-menu" className={`${styles.sidebar} ${open ? styles.open : ''}`}>
       <Link href="/dashboard" className={styles.brand} onClick={() => setOpen(false)}><span className={styles.brandMark}>RN_</span><span>PORTFOLIO <small>CONTROL PANEL</small></span></Link>
-      <p className={styles.navLabel}>NAVEGACIÓN <span>01—07</span></p>
+      <p className={styles.navLabel}>NAVEGACIÓN <span>01—08</span></p>
       <nav aria-label="Administración" className={styles.navigation}>{navigation.map(item => <Link key={item.href} href={item.href} onClick={() => setOpen(false)} className={styles.navLink} aria-current={(item.href === '/dashboard' ? pathname === item.href : pathname.startsWith(item.href)) ? 'page' : undefined}><span className={styles.icon} aria-hidden="true">{item.icon}</span>{item.title}</Link>)}</nav>
       <div className={styles.bottom}><span className={styles.status}><i /> PORTAFOLIO / ADMIN</span><button type="button" onClick={logout}>↪ &nbsp; Cerrar sesión</button></div>
     </aside><div className={styles.content}>{children}</div>
